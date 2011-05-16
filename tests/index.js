@@ -1,4 +1,4 @@
-var jasmine, describe, it, beforeEach, spyOn, expect, readFixtures, loadFixtures, setFixtures;
+var jasmine, describe, it, beforeEach, spyOn, expect, readFixtures, loadFixtures, setFixtures, sandbox;
 
 describe("jasmine.Fixtures", function  () {
   var ajaxData = 'some ajax data'
@@ -167,7 +167,9 @@ describe("jasmine.Fixtures", function  () {
   describe("sandbox", function () {
     describe("with no attributes parameter specified", function () {
       it("should create DIV with id #sandbox", function () {
-        expect(jasmine.getFixtures().sandbox().innerHTML).toEqual('<div id="sandbox" />');
+        expect(jasmine.getFixtures().sandbox().innerHTML).toEqual('');
+        expect(jasmine.getFixtures().sandbox().id).toEqual('sandbox');
+        expect(jasmine.getFixtures().sandbox().tagName).toEqual('DIV');
       });
     });
 
@@ -197,74 +199,74 @@ describe("jasmine.Fixtures", function  () {
     });
   });
 
- // describe("cleanUp", function () {
- //   it("should remove fixtures container from DOM", function () {
- //     appendFixturesContainerToDom();
- //     jasmine.getFixtures().cleanUp();
- //     expect(fixturesContainer().size()).toEqual(0);
- //   });
- // });
+  describe("cleanUp", function () {
+    it("should remove fixtures container from DOM", function () {
+      appendFixturesContainerToDom();
+      jasmine.getFixtures().cleanUp();
+      expect(fixturesContainer()).toBeFalsy();
+    });
+  });
 
- // // WARNING: this block requires its two tests to be invoked in order!
- // // (Really ugly solution, but unavoidable in this specific case)
- // describe("automatic DOM clean-up between tests", function () {
- //   // WARNING: this test must be invoked first (before 'SECOND TEST')!
- //   it("FIRST TEST: should pollute the DOM", function () {
- //     appendFixturesContainerToDom();
- //   });
+  // WARNING: this block requires its two tests to be invoked in order!
+  // (Really ugly solution, but unavoidable in this specific case)
+  describe("automatic DOM clean-up between tests", function () {
+    // WARNING: this test must be invoked first (before 'SECOND TEST')!
+    it("FIRST TEST: should pollute the DOM", function () {
+      appendFixturesContainerToDom();
+    });
 
- //   // WARNING: this test must be invoked second (after 'FIRST TEST')!
- //   it("SECOND TEST: should see the DOM in a blank state", function () {
- //     expect(fixturesContainer().size()).toEqual(0);
- //   });
- // });
+    // WARNING: this test must be invoked second (after 'FIRST TEST')!
+    it("SECOND TEST: should see the DOM in a blank state", function () {
+      expect(fixturesContainer()).toBeFalsy();
+    });
+  });
 });
 
 
-//describe("prototype matchers", function () {
-//  describe("when prototype matcher hides original Jasmine matcher", function () {
-//    describe("and tested item is prototype object", function () {
-//      it("should invoke prototype version of matcher", function () {
-//        expect($('<div />')).toBe('div');
-//      });
-//    });
-//
-//    describe("and tested item is not prototype object", function () {
-//      it("should invoke original version of matcher", function () {
-//        expect(true).toBe(true);
-//      });
-//    });
-//  });
-//
-//  describe("when prototype matcher does not hide any original Jasmine matcher", function () {
-//    describe("and tested item in not prototype object", function () {
-//      it("should pass negated", function () {
-//        expect({}).not.toHaveClass("some-class");
-//      });
-//    });
-//  });
-//
-//  describe("when invoked multiple times on the same fixture", function () {
-//    it("should not reset fixture after first call", function () {
-//      setFixtures(sandbox());
-//      expect($('#sandbox')).toExist();
-//      expect($('#sandbox')).toExist();
-//    });
-//  });
-//
-//  describe("toHaveClass", function () {
-//    var className = "some-class";
-//
-//    it("should pass when class found", function () {
-//      setFixtures(sandbox({'class': className}));
-//      expect($('#sandbox')).toHaveClass(className);
-//    });
-//
-//    it("should pass negated when class not found", function () {
-//      setFixtures(sandbox());
-//      expect($('#sandbox')).not.toHaveClass(className);
-//    });
-//  });
+describe("prototype matchers", function () {
+  //describe("when prototype matcher hides original Jasmine matcher", function () {
+  //  describe("and tested item is prototype object", function () {
+  //    it("should invoke prototype version of matcher", function () {
+  //      expect($('<div />')).toBe('div');
+  //    });
+  //  });
+
+  //  describe("and tested item is not prototype object", function () {
+  //    it("should invoke original version of matcher", function () {
+  //      expect(true).toBe(true);
+  //    });
+  //  });
+  //});
+
+  describe("when prototype matcher does not hide any original Jasmine matcher", function () {
+    describe("and tested item in not prototype object", function () {
+      it("should pass negated", function () {
+        expect({}).not.toHaveClass("some-class");
+      });
+    });
+  });
+
+  describe("when invoked multiple times on the same fixture", function () {
+    it("should not reset fixture after first call", function () {
+      setFixtures(sandbox());
+      expect($('sandbox')).toExist();
+      expect($('sandbox')).toExist();
+    });
+  });
+
+  //describe("toHaveClass", function () {
+  //  var className = "some-class";
+
+  //  it("should pass when class found", function () {
+  //    setFixtures(sandbox({'class': className}));
+  //    expect($('sandbox')).toHaveClass(className);
+  //  });
+
+  //  it("should pass negated when class not found", function () {
+  //    setFixtures(sandbox());
+  //    expect($('sandbox')).not.toHaveClass(className);
+  //  });
+  //});
 //
 //  describe("toHaveAttr", function () {
 //    var attributeName = 'attr1'
@@ -618,4 +620,4 @@ describe("jasmine.Fixtures", function  () {
 //    });
 //
 //  });
-//});
+});
