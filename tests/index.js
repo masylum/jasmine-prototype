@@ -1,7 +1,8 @@
 var jasmine, describe, it, beforeEach, spyOn, expect, readFixtures, loadFixtures, setFixtures, sandbox;
 
 describe("jasmine.Fixtures", function  () {
-  var ajaxData = 'some ajax data'
+  // make ajaxData look like the real Prototype response
+  var ajaxData = { responseText: 'some ajax data' }
     , fixtureUrl = 'some_url'
     , anotherFixtureUrl = 'another_url'
     , ajaxCalls = 0
@@ -59,22 +60,22 @@ describe("jasmine.Fixtures", function  () {
   describe("read", function () {
     it("should return fixture HTML", function () {
       var html = jasmine.getFixtures().read(fixtureUrl);
-      expect(html).toEqual(ajaxData);
+      expect(html).toEqual(ajaxData.responseText);
     });
 
     it("should return duplicated HTML of a fixture when its url is provided twice in a single call", function () {
       var html = jasmine.getFixtures().read(fixtureUrl, fixtureUrl);
-      expect(html).toEqual(ajaxData + ajaxData);
+      expect(html).toEqual(ajaxData.responseText + ajaxData.responseText);
     });
 
     it("should return merged HTML of two fixtures when two different urls are provided in a single call", function () {
       var html = jasmine.getFixtures().read(fixtureUrl, anotherFixtureUrl);
-      expect(html).toEqual(ajaxData + ajaxData);
+      expect(html).toEqual(ajaxData.responseText + ajaxData.responseText);
     });
 
     it("should have shortcut global method readFixtures", function () {
       var html = readFixtures(fixtureUrl, anotherFixtureUrl);
-      expect(html).toEqual(ajaxData + ajaxData);
+      expect(html).toEqual(ajaxData.responseText + ajaxData.responseText);
     });
 
     it("should use the configured fixtures path concatenating it to the requested url (without concatenating a slash if it already has an ending one)", function () {
@@ -95,22 +96,22 @@ describe("jasmine.Fixtures", function  () {
   describe("load", function () {
     it("should insert fixture HTML into container", function () {
       jasmine.getFixtures().load(fixtureUrl);
-      expect(fixturesContainer().innerHTML).toEqual(ajaxData);
+      expect(fixturesContainer().innerHTML).toEqual(ajaxData.responseText);
     });
 
     it("should insert duplicated fixture HTML into container when the same url is provided twice in a single call", function () {
       jasmine.getFixtures().load(fixtureUrl, fixtureUrl);
-      expect(fixturesContainer().innerHTML).toEqual(ajaxData + ajaxData);
+      expect(fixturesContainer().innerHTML).toEqual(ajaxData.responseText + ajaxData.responseText);
     });
 
     it("should insert merged HTML of two fixtures into container when two different urls are provided in a single call", function () {
       jasmine.getFixtures().load(fixtureUrl, anotherFixtureUrl);
-      expect(fixturesContainer().innerHTML).toEqual(ajaxData + ajaxData);
+      expect(fixturesContainer().innerHTML).toEqual(ajaxData.responseText + ajaxData.responseText);
     });
 
     it("should have shortcut global method loadFixtures", function () {
       loadFixtures(fixtureUrl, anotherFixtureUrl);
-      expect(fixturesContainer().innerHTML).toEqual(ajaxData + ajaxData);
+      expect(fixturesContainer().innerHTML).toEqual(ajaxData.responseText + ajaxData.responseText);
     });
 
     describe("when fixture container does not exist", function () {
@@ -127,7 +128,7 @@ describe("jasmine.Fixtures", function  () {
 
       it("should replace it with new content", function () {
         jasmine.getFixtures().load(fixtureUrl);
-        expect(fixturesContainer().innerHTML).toEqual(ajaxData);
+        expect(fixturesContainer().innerHTML).toEqual(ajaxData.responseText);
       });
     });
   });
@@ -221,7 +222,6 @@ describe("jasmine.Fixtures", function  () {
     });
   });
 });
-
 
 describe("prototype matchers", function () {
   //describe("when prototype matcher hides original Jasmine matcher", function () {
