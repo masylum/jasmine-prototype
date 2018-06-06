@@ -1,6 +1,6 @@
 # jasmine-prototype
 
-jasmine-prototype provides two extensions for [Jasmine](http://pivotal.github.com/jasmine/) JavaScript Testing Framework:
+jasmine-prototype provides two extensions for [Jasmine](https://jasmine.github.io/) JavaScript Testing Framework:
 
 - a set of custom matchers for prototype framework
 - an API for handling HTML fixtures in your specs
@@ -9,7 +9,7 @@ jasmine-prototype is a port of [jasmine-jquery](https://github.com/velesin/jasmi
 
 ## Installation
 
-Simply download _jasmine-prototype.js_ from the [downloads page](http://github.com/masylum/jasmine-prototype/downloads) and include it in your Jasmine's test runner file (or add it to _jasmine.yml_ file if you're using Ruby with [jasmine-gem](http://github.com/pivotal/jasmine-gem)). Remember to include also the prototype library as jasmine-prototype relies on it.
+Simply download _jasmine-prototype.js_ from the [downloads page](http://github.com/masylum/jasmine-prototype/downloads) and include it in your Jasmine's test runner file (or add it to _jasmine.yml_ file if you're using Ruby with [jasmine-gem](https://github.com/jasmine/jasmine-gem)). Remember to include also the prototype library as jasmine-prototype relies on it.
 
 ## prototype matchers
 
